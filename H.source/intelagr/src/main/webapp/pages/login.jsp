@@ -82,6 +82,7 @@ function onSubmit(){
 		},
 		dataType:"json"
 	});
+	//lyn-branch
 	//window.location.href = "main.jsp";
 }
 
