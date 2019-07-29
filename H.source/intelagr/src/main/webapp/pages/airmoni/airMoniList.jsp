@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %>
 <!DOCTYPE html>
 <html style="width:100%;height:100%;overflow:hidden">
 <head>
@@ -18,12 +20,12 @@
 <body class="easyui-layout">
 	<div region="center" border="false" style="padding: 5px;">
 		<fieldset id="queryBlock" class="fieldset_common_style">
-			<form id="inputForm" name="inputForm" method="get"
-				action="../airMoni/search">
+			<form id="inputForm" name="inputForm" method="post"
+				action="${pageContext.request.contextPath }/airMoni/list">
 				<input type='hidden' id="pageTotal" name="pageTotal"
-					value="0" /> <input type="hidden" id="page"
-					name="page" value="1"> <input type="hidden"
-					id="pageSize" name="pageSize" value="15">
+					value="${pageModel.totalCount }" /> <input type="hidden" id="page"
+					name="page" value="${pageModel.page }"> <input type="hidden"
+					id="pageSize" name="pageSize" value="${pageModel.pageSize }">
 				<table class="table_common_style">
 					<tr>
 						<td class="table_common_td_label_query_style">监测日期：</td>
@@ -80,6 +82,18 @@
 					<th field="createUserId" width="120" align="center">创建日期</th>
 				</tr>
 			</thead>
+					<c:forEach items="${pageModel.result }" var="a">
+					<tr>
+						<td field="id" width="140" align="center" hidden="true">${a.id }</td>
+						<td field="monitorDate" width="120" align="center"><f:formatDate value="${a.monitorDate }" pattern="yyyy-MM-dd"/></td>
+						<td field="monitorPoint" width="120" align="center">${a.monitorPointName }</td>
+						<td field="tsp" width="120" align="center">${a.tsp }</td>
+						<td field="so2" width="120" align="center">${a.so2 }</td>
+						<td field="no2" width="120" align="center">${a.no2 }</td>
+						<td field="createDate" width="120" align="center">${a.createUserId }</td>
+						<td field="createUserId" width="120" align="center"><f:formatDate value="${a.createDate }" pattern="yyyy-MM-dd"/></td>
+					</tr>
+					</c:forEach>
 			<tbody>
 				
 			</tbody>
@@ -118,7 +132,7 @@
 			});
 		});
 
-		function deleteRecord(id) {
+		function deleteRecord() {
 			var rows = $('#data').datagrid('getSelections');
 			var length = rows.length;
 			if (length < 1) {
@@ -132,9 +146,9 @@
 						var length = rows.length;
 						for (var i = 0; i < rows.length; i++)
 							ids.push(rows[i].id);
-						Public.ajaxGet('delete', {
-							ids : ids
-						}, function(e) {
+						Public.ajaxPost('${pageContext.request.contextPath}/airMoni/delete', 
+							JSON.stringify(ids)
+						, function(e) {
 							if (200 == e.status) {
 
 								form_check();
@@ -150,7 +164,7 @@
 
 		}
 
-		function edit(id) {
+		function edit() {
 			var rows = $('#data').datagrid('getSelections');
 			var length = rows.length;
 			if (length == 0 ) {
@@ -168,7 +182,7 @@
 				height : 300,
 				closed : false,
 				cache : false,
-				href : 'airMoniEdit.jsp?id=' + id,
+				href : '${pageContext.request.contextPath}/airMoni/edit?id=' + id,
 				modal : true
 			});
 		}
@@ -180,7 +194,7 @@
 				height : 300,
 				closed : false,
 				cache : false,
-				 href: 'airMoniAdd.jsp',
+				 href: '${pageContext.request.contextPath}/airMoni/add',
 				modal : true
 			});
 		}
@@ -218,7 +232,7 @@
 				height : 300,
 				closed : false,
 				cache : false,
-				href : 'view?id=' + id,
+				href : '${pageContext.request.contextPath}/airMoni/view?id=' + id,
 				modal : true
 			});
 		}

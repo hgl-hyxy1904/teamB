@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oracle.intelagr.mapper.ContractMapper">
+	<resultMap type="Contract" id="contractMap">
+		<id column="id" property="id" />
+		<result column="contractorCode" property="contractorCode" />
+		<result column="graphCode" property="graphCode" />
+		<result column="landCode" property="landCode" />
+		<result column="landName" property="landName" />
+		<result column="contractArea" property="contractArea" />
+		<result column="measurementMu" property="measurementMu" />
+		<result column="eastTo" property="eastTo" />
+		<result column="westTo" property="westTo" />
+		<result column="southTo" property="southTo" />
+		<result column="northTo" property="northTo" />
+		<result column="landLevel" property="landLevel" />
+		<result column="landType" property="landType" />
+		<result column="isBaseLand" property="isBaseLand" />
+		<result column="ownership" property="ownership" />
+		<result column="landClass" property="landClass" />
+		<result column="disputeReason" property="disputeReason" />
+		<result column="landPurpose" property="landPurpose" />
+		<result column="contractStartDate" property="contractStartDate" />
+		<result column="contractYear" property="contractYear" />
+		<result column="contractEndDate" property="contractEndDate" />
+		<result column="landTypeName" property="landTypeName" />
+		<result column="landClassName" property="landClassName" />
+		<result column="zmj" property="zmj" />
+		<result column="actualMu" property="actualMu" />
+	</resultMap>
+ 	<select id="select" resultMap="contractMap" parameterType="java.util.Map">
+ 		select * from m_contract
+ 		<where>
+ 			<if test="contractorCode!=null and contractorCode!=''">
+ 				and contractorCode = #{contractorCode}
+ 			</if>
+ 			
+ 		</where>
+ 	</select>
+</mapper>

@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="/tags/simple" prefix="s" %>
 <!DOCTYPE html>
 <html style="width:100%;height:100%;overflow:hidden">
 <head>
@@ -30,15 +32,7 @@
 	    			<tr>
 						<td class="table_common_td_label_style">监测点位：</td>
 		    			<td class="table_common_td_txt_style">
-		    				<select name="monitorPointCode" class="easyui-combobox" style="width:170px;" data-options="editable:false">
-
-	<option value="dq001" >大气121</option>
-
-	<option value="dq2" >大气2</option>
-
-	<option value="sf" >ss</option>
-
-</select>
+		    				<s:select name="monitorPointCode" id="monitorPointCode" entityName="commondata" codeKey="MonitorPointType" hasPleaseSelectOption="true"></s:select>
 		    			</td>
 	    			</tr>
 	    			<tr>
@@ -77,13 +71,13 @@
 function formCheck(){
 	if(!check()) return ;
 	var a = $('#addFrom').toObject();
-	Public.ajaxPost('save', JSON.stringify(a), function(e) {
+	Public.ajaxPost('${pageContext.request.contextPath}/airMoni/save', JSON.stringify(a), function(e) {
 		if (200 == e.status) {
-			$.messager.alert('提示','保存成功。','info');
+			$.messager.alert('提示',e.msg,'info');
 			closeEdiDialog();
 			$('#inputForm').submit();
 		} else {
-			$.messager.alert('错误','处理失败。','error');
+			$.messager.alert('错误',e.msg,'error');
 		}
 	});
 }

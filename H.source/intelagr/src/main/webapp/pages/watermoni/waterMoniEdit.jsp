@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@taglib uri="/tags/simple" prefix="s" %>
 <!DOCTYPE html>
 <html style="width:100%;height:100%;overflow:hidden">
 <head>
@@ -17,51 +18,47 @@
 <body class="easyui-layout">
 	<div region="center" border="false" style="padding:0 10px;">	
 		<form id="addFrom" class="easyui-form" method="post" data-options="novalidate:true">
-			<input name="id" value="" type="hidden">
+			<input name="id" value="${waterMoni.id }" type="hidden">
 			<fieldset id="queryBlock" class="fieldset_common_style">
 				<table class="table_common_style">
 					<tr>
 		    			<td class="table_common_td_label_style">监测日期：</td>
 		    			<td class="table_common_td_txt_style">
-		    				<input class="easyui-datebox" name="monitorDate"  value="Sun May 21 00:00:00 CST 2017"
+		    				<input class="easyui-datebox" name="monitorDate"  value="${date }"
 	            data-options="required:true,showSeconds:false" style="width:170px" editable="false">
 		    			</td>
 	    			</tr>
 	    			<tr>
 		    			<td class="table_common_td_label_style">断面名称：</td>
 		    			<td class="table_common_td_txt_style">
-		    				<select name="monitorPointCode" class="easyui-combobox" style="width:170px;" data-options="editable:false">
-
-	<option value="sz1" >水质1</option>
-
-</select>
+		    				<s:select name="monitorPointCode" id="monitorPointCode" value="${waterMoni.monitorPointCode }" entityName="commondata" codeKey="MonitorPointType" hasPleaseSelectOption="true"></s:select>
 		    			</td>
 	    			</tr>
 	    			<tr>
 		    			<td class="table_common_td_label_style">PH值：</td>
 		    			<td class="table_common_td_txt_style">
-			    			<input class="easyui-textbox" type="text" name="ph" value="" data-options="min:0,max:999999999.99,precision:2,groupSeparator:','" style="width:170px;"></input>
+			    			<input class="easyui-textbox" type="text" name="ph" value="${waterMoni.ph }" data-options="min:0,max:999999999.99,precision:2,groupSeparator:','" style="width:170px;"></input>
 			    			<span class="span_common_mustinput_style">*</span>
 		    			</td>
 	    			</tr>
 	    			<tr>
 		    			<td class="table_common_td_label_style">DO(mg/L)：</td>
 		    			<td class="table_common_td_txt_style">
-		    				<input class="easyui-textbox" type="text" name="doValue" value=""  data-options="min:0,max:999999999.99,precision:2,groupSeparator:','" style="width:170px;"></input>
+		    				<input class="easyui-textbox" type="text" name="doValue" value="${waterMoni.doValue }"  data-options="min:0,max:999999999.99,precision:2,groupSeparator:','" style="width:170px;"></input>
 		    				<span class="span_common_mustinput_style">*</span>
 		    			</td>
 	    			</tr>
 	    			<tr>
 		    			<td class="table_common_td_label_style">COD Mn(mg/L)：</td>
 		    			<td class="table_common_td_txt_style">
-		    				<input class="easyui-textbox" type="text" name="codmn" value=""  data-options="min:0,max:999999999.99,precision:2,groupSeparator:','" style="width:170px;"></input>
+		    				<input class="easyui-textbox" type="text" name="codmn" value="${waterMoni.codmn }"  data-options="min:0,max:999999999.99,precision:2,groupSeparator:','" style="width:170px;"></input>
 		    				<span class="span_common_mustinput_style">*</span>
 		    			</td>
 	    			</tr>
 	    			<tr>
 		    			<td class="table_common_td_label_style">BOD5(mg/L)：</td>
 		    			<td class="table_common_td_txt_style">
-		    				<input class="easyui-textbox" type="text" name="bod5" value=""  data-options="min:0,max:999999999.99,precision:2,groupSeparator:','" style="width:170px;"></input>
+		    				<input class="easyui-textbox" type="text" name="bod5" value="${waterMoni.bod5 }"  data-options="min:0,max:999999999.99,precision:2,groupSeparator:','" style="width:170px;"></input>
 		    				<span class="span_common_mustinput_style">*</span>
 		    			</td>
 	    			</tr>
@@ -69,21 +66,21 @@
 	    			<tr>
 		    			<td class="table_common_td_label_style">氨氮(mg/L)：</td>
 		    			<td class="table_common_td_txt_style">
-		    				<input class="easyui-textbox" type="text" name="nh3n" value=""  data-options="min:0,max:999999999.99,precision:3,groupSeparator:','" style="width:170px;"></input>
+		    				<input class="easyui-textbox" type="text" name="nh3n" value="${waterMoni.nh3n }"  data-options="min:0,max:999999999.99,precision:3,groupSeparator:','" style="width:170px;"></input>
 		    				<span class="span_common_mustinput_style">*</span>
 		    			</td>
 	    			</tr>
 	    			<tr>
 		    			<td class="table_common_td_label_style">总磷(mg/L)：</td>
 		    			<td class="table_common_td_txt_style">
-		    				<input class="easyui-textbox" type="text" name="tp" value=""  data-options="min:0,max:999999999.99,precision:3,groupSeparator:','" style="width:170px;"></input>
+		    				<input class="easyui-textbox" type="text" name="tp" value="${waterMoni.tp }"  data-options="min:0,max:999999999.99,precision:3,groupSeparator:','" style="width:170px;"></input>
 		    				<span class="span_common_mustinput_style">*</span>
 		    			</td>
 	    			</tr>
 	    			<tr>
 		    			<td class="table_common_td_label_style">COD Cr(mg/L)：</td>
 		    			<td class="table_common_td_txt_style">
-		    				<input class="easyui-textbox" type="text" name="codcr" value=""  data-options="min:0,max:999999999.99,precision:2,groupSeparator:','" style="width:170px;"></input>
+		    				<input class="easyui-textbox" type="text" name="codcr" value="${waterMoni.codcr }"  data-options="min:0,max:999999999.99,precision:2,groupSeparator:','" style="width:170px;"></input>
 		    				<span class="span_common_mustinput_style">*</span>
 		    			</td>
 	    			</tr>
@@ -101,13 +98,13 @@
 function formCheck(){
 	if(!check()) return ;
 	var a = $('#addFrom').toObject();
-	Public.ajaxPost('save', JSON.stringify(a), function(e) {
+	Public.ajaxPost('${pageContext.request.contextPath}/waterMoni/update', JSON.stringify(a), function(e) {
 		if (200 == e.status) {
-			$.messager.alert('提示','保存成功。','info');
+			$.messager.alert('提示',e.msg,'info');
 			closeEdiDialog();
 			$('#inputForm').submit();
 		} else {
-			$.messager.alert('错误','保存失败','error');
+			$.messager.alert('错误',e.msg,'error');
 		}
 	});
 }

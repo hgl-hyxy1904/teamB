@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oracle.intelagr.mapper.PeasantMapper">
+	<resultMap type="Peasant" id="peasantMap">
+		<id column="id" property="id" />
+		<result column="contractorCode" property="contractorCode" />
+		<result column="contractorName" property="contractorName" />
+		<result column="graphCode" property="graphCode" />
+		<result column="contractorID" property="contractorID" />
+		<result column="contractorIDType" property="contractorIDType" />
+		<result column="contractorAge" property="contractorAge" />
+		<result column="contractorSex" property="contractorSex" />
+		<result column="contractorBirth" property="contractorBirth" />
+		<result column="contractorTel" property="contractorTel" />
+		<result column="cityCode" property="cityCode" />
+		<result column="townCode" property="townCode" />
+		<result column="countryCode" property="countryCode" />
+		<result column="groupName" property="groupName" />
+		<result column="contractorZipcode" property="contractorZipcode" />
+		<result column="contractorhouseholdType" property="contractorhouseholdType" />
+		<result column="contractorType" property="contractorType" />
+		<result column="contractId" property="contractId" />
+		<result column="contractorNation" property="contractorNation" />
+		<result column="rightId" property="rightId" />
+		<result column="attestor" property="attestor" />
+		<result column="attestMechanism" property="attestMechanism" />
+		<result column="attestDate" property="attestDate" />
+		<result column="attestNo" property="attestNo" />
+		<result column="landPurpose" property="landPurpose" />
+		<result column="rightGetWay" property="rightGetWay" />
+		<result column="contractStartDate" property="contractStartDate" />
+		<result column="contractYear" property="contractYear" />
+		<result column="contractEndDate" property="contractEndDate" />
+		<result column="getLandPersonCount" property="getLandPersonCount" />
+		<result column="familyPersonCount" property="familyPersonCount" />
+		<result column="surveyDate" property="surveyDate" />
+		<result column="surveyMemo" property="surveyMemo" />
+	</resultMap>
+ 	<select id="select" resultMap="peasantMap" parameterType="java.util.Map">
+ 		select * from m_peasant
+ 		<where>
+ 			<if test="contractorID!=null and contractorID!=''">
+ 				and contractorID = #{contractorID}
+ 			</if>
+ 		</where>
+ 	</select>
+
+</mapper>

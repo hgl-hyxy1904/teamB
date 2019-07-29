@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %>
+<%@taglib uri="/tags/simple" prefix="s" %>
 <!DOCTYPE html>
 <html style="width:100%;height:100%;overflow:hidden">
 <head>
@@ -22,7 +25,7 @@
 <body class="easyui-layout">
 	<div region="center" border="false" style="padding:5px;">
 		 
-			<form id="inputFrom" name="inputFrom" method="get" action="../geneLandReg/list">
+			<form id="inputFrom" name="inputFrom" method="post" action="">
 				 <input type="hidden" name="id" id="id" value="">
 				 <input type="hidden" name="archiveAcreage" id="archiveAcreage">
 				 <input type="hidden" name="operatorName" id="operatorName" value="">
@@ -38,7 +41,7 @@
 				 <!-- 联系方式 -->
 				 <input type="hidden" name="contractorTelTmp" id="contractorTelTmp" value="">
 				 
-				 <input type="hidden" id="applyBatchNo" name="applyBatchNo" value="PT20170521000003"/>
+				 <input type="hidden" id="applyBatchNo" name="applyBatchNo" value="${ApplyBatchNo }"/>
 				 <input type="hidden" name="townCode" value="1">
 				 <input type="hidden" name="countryCode" value="2">
 				 <input type="hidden" name="groupName" value="3">
@@ -48,7 +51,7 @@
 				<tr>
 					<td class="table_common_td_label_style">申请批次号：</td>
 					<td class="table_common_td_txt_style">
-						PT20170521000003
+						<span  id="ApplyBatchNo"  >${ApplyBatchNo }</span>
 					</td>
 				</tr>
 				<tr>
@@ -56,14 +59,7 @@
 					<td class="table_common_td_txt_style editableFalse">
 						
 
-
-		<select id="year" name="year" class="easyui-combobox" style="width:187px;height:25px" data-options="editable:false">
-
-			<option value="2015">2015年</option>
-
-			<option value="2014">2014年</option>
-
-		</select>
+		<s:select name="year" id="year" entityName="yearcode" value="${geneyear }" hasPleaseSelectOption="true"></s:select>				
 
 		 <script type="text/javascript">
 
@@ -88,86 +84,8 @@
 					</td>
 					<td class="table_common_td_label_style">企业：</td>
 					<td class="table_common_td_txt_style editableFalse">
-						
+					<s:select name="companyCode" id="companyCode" entityName="company" value="${companyCode }" codeKey="" hasPleaseSelectOption="true"></s:select>	
 
-
-	
-
-		<select id="companyCode" name="companyCode" class="easyui-combobox" style="width:187px;height:25px" data-options="editable:true">
-<option value="" selected>-=请选择=-</option>
-			<option value="GS001">五常市长盛种业有限公司</option>
-
-			<option value="GS002">五常市利元种业有限公司</option>
-
-			<option value="GS003">五常市龙洋种子有限公司</option>
-
-			<option value="GS004">黑龙江阳光种业有限公司</option>
-
-			<option value="GS005">五常市神农天源种子有限公司</option>
-
-			<option value="GS006">五常市葵花阳光农业科技服务有限公司</option>
-
-			<option value="GS007">东方粮仓种业科技发展有限公司</option>
-
-			<option value="GS008">五常沃科收种业有限责任公司</option>
-
-			<option value="GS009">五常市宏运种业有限公司</option>
-
-			<option value="GS010">五常市绿珠种业科技有限公司</option>
-
-			<option value="GS011">黑龙江方圆农业有限责任公司</option>
-
-			<option value="GS012">五常市丰源农业科技创新有限责任公司</option>
-
-			<option value="GS013">哈尔滨盛世百年农业有限公司</option>
-
-			<option value="GS100">五常市金福粮油有限公司</option>
-
-			<option value="GS101">五常市汤洪斌水稻种植农民专业合作社</option>
-
-			<option value="GS102">五常市农之坊水稻种植农民专业合作社</option>
-
-			<option value="GS103">五常市浩海水稻种植农民专业合作社</option>
-
-			<option value="GS104">五常市首誉水稻种植农民专业合作社</option>
-
-			<option value="GS105">五常市百谷香水稻种植农民专业合作社</option>
-
-			<option value="GS106">五常市雪国粮仓水稻种植专业合作社</option>
-
-			<option value="GS107">五常市明栎水稻种植专业合作社</option>
-
-			<option value="GS108">五常市永顺丰水稻种植农民专业合作社</option>
-
-			<option value="GS109">五常市秋然稻香水稻种植农民专业合作社</option>
-
-			<option value="GS110">五常市千盈水稻种植专业合作社</option>
-
-			<option value="GS111">五常裕禾田水稻种植农民专业合作社</option>
-
-			<option value="GS112">五常市曾氏水稻种植专业合作社</option>
-
-			<option value="GS113">五常市官仓稻场水稻种植农民专业合作社</option>
-
-			<option value="GS114">五常市海兴水稻种植农民专业合作社</option>
-
-			<option value="GS115">五常市积养源水稻种植农民专业合作社</option>
-
-			<option value="GS116">五常市那军水稻种植农民专业合作社</option>
-
-			<option value="GS117">五常市德双水稻种植专业合作社</option>
-
-			<option value="GS118">五常市康基水稻种植专业合作社</option>
-
-			<option value="GS119">双涛水稻种植合作社</option>
-
-			<option value="GS120">五常市小稻夫水稻种植农民专业合作社</option>
-
-			<option value="GS121">五常市郑文波水稻种植专业合作社</option>
-
-			<option value="GS122">文龙水稻种植专业合作社</option>
-
-		</select>
 
 		 <input type="hidden" id="companyCode_companyName" name="companyName" value="">
 
@@ -309,7 +227,30 @@
 				</tr>
 			</thead>
 			<tbody id="dataBody">
-						
+					 <c:forEach items="${geneLandRegDList }" var="g">
+					<tr>
+					<td field="contractorValue" width="30" align="center" checkbox="true">${g.contractorType },${g.idType },${g.contractorID },${g.archiveAcreage },${g.operatorName },${g.operatorDate },${g.contractorName },${g.contractorTel },${g.townCode },${g.countryCode },${g.groupName },${g.id }</td>
+					<td field="contractorType" align="center" hidden="true">${g.contractorType }</td>
+					<td field="contractorText" width="120" align="center" nowrap="nowrap">${g.contractorTypeName }</td>
+					<td field="idType" align="center" hidden="true">${g.idType }</td>
+					<td field="idTypeText" width="120" align="center" nowrap="nowrap">${g.idName }</td>
+					<td field="contractorID" width="150" align="center" nowrap="nowrap">${g.contractorID }</td>
+					<td field="contractorName" width="120" align="center" nowrap="nowrap">${g.contractorName }</td>
+					<td field="contractorTel" align="center" hidden="true">${g.contractorTel }</td>
+					<td field="cityCode" align="center" hidden="true">${g.cityCode }</td>
+					<td field="townCode" align="center" hidden="true">${g.townCode }</td>
+					<td field="townText" width="120" align="center" nowrap="nowrap">${g.townName }</td>
+					<td field="countryCode" align="center" hidden="true">${g.countryCode }</td>
+					<td field="countryText" width="120" align="center" nowrap="nowrap">${g.countryName }</td>
+					<td field="groupName" width="200" align="center" nowrap="nowrap">${g.groupName }</td>
+					<td field="zmj" width="130" align="center" nowrap="nowrap">${g.zmj }</td>
+					<td field="yba" width="130" align="center" nowrap="nowrap">${g.yba }</td>
+					<td field="kba" width="130" align="center" nowrap="nowrap">${g.kba }</td>
+					<td field="archiveAcreage" width="130" align="center" nowrap>${g.archiveAcreage }</td>
+					<td field="operatorName" width="130" align="center" nowrap="nowrap">${g.operatorName }</td>
+					<td field="operatorDate" width="120" align="center" nowrap="nowrap"><f:formatDate value="${g.operatorDate }" pattern="yyyy-MM-dd"/></td> 
+					</tr>
+					</c:forEach> 
 			</tbody>
 		</table>
 		
@@ -319,6 +260,36 @@
 	<div id="importDialog"></div>
 	
 <script type="text/javascript">
+	
+/* 	var a = ${geneLandRegDList};
+	var list =JSON.parse(a);
+	for(var i=0;i<list.length;i++){
+		$('#geneLandData').datagrid('appendRow', {
+			contractorValue: list[i].contractorType+","+list[i].idType+","+list[i].contractorID+","+list[i].archiveAcreage+","+list[i].operatorName+","+list[i].operatorDate+","+list[i].contractorName+","+list[i].contractorTel+","+list[i].townCode+","+list[i].countryCode+","+list[i].groupName+","+list[i].id,
+			contractorType: list[i].contractorType,//承包人类型列是隐藏的
+			contractorText: list[i].contractorTypeName,
+			idType: list[i].idType,//证件类型列是隐藏的
+			idTypeText: "身份证",
+			contractorID:  list[i].contractorID,
+			contractorName: list[i].contractorName,
+			contractorTel: list[i].contractorTel,//联系人电话列是隐藏的
+			cityCode: list[i].cityCode,//市编码列是隐藏的
+			townCode: list[i].townCode,//镇编码列是隐藏的
+			townText: list[i].townName,
+			countryCode: list[i].countryCode,//村编码列是隐藏的
+			countryText: list[i].countryName,
+			groupName: list[i].groupName,
+			zmj: list[i].zmj,
+			yba: list[i].yba,
+			kba: list[i].kba,
+			archiveAcreage: list[i].archiveAcreage,
+			operatorName: list[i].operatorName,
+			operatorDate: list[i].operatorDate
+		}); 
+		
+	}*/
+	
+	
 $(document).ready(function(){
 	 var winHeight = $(window).height();
      var queryBlockHeight = $("#queryBlock").height();
@@ -387,7 +358,7 @@ function save( ){
 		hideLoading();
 		if (200 == e.status) {
 			$.messager.alert('提示','操作成功。','info', function(){
-				var retFlag = "";
+				var retFlag = new String(${retFlag });
 				if( retFlag == "1" ){//为1表示从一览页面过来的;
 					retList();
 				}else{
@@ -412,7 +383,7 @@ function addLandRegD(){
 	    height: 480,
 	    closed: false,
 	    cache: false,
-	    href: 'geneLandRegDEdit.jsp',
+	    href: '${pageContext.request.contextPath}/geneLandReg/add',
 	    modal: true
 	});
 }
@@ -462,7 +433,7 @@ function editLand(){
 	    height: 480,
 	    closed: false,
 	    cache: false,
-	    href: '${pageContext.request.contextPath}/geneLandRegD/editInput?flag=edit&rowIndex='+rowIndex+'&conInfo=' + encodeURIComponent(id) + "&t=" + (new Date).getTime() + "&year=" + year,
+	    href: '${pageContext.request.contextPath}/geneLandReg/edit?rowIndex='+rowIndex+'&conInfo=' + encodeURIComponent(id) + "&t=" + (new Date).getTime() + "&year=" + year,
 	    modal: true
 	});
 	//Modify By WolfSoul End
@@ -506,7 +477,7 @@ function retList(){
 	
 	document.location.href = url;
 }
-//复制上年度数据
+/* //复制上年度数据
 function copyData(){
 	var year = $("#year").combobox('getValue');
 	var companyCode = $("#companyCode").combobox('getValue');
@@ -661,7 +632,7 @@ function importData(){
 
 function importTempDown(){
 	document.location.href = "${pageContext.request.contextPath}/temp/普通土地备案导入模板.xlsx";
-}
+} 
 </script>
 </body>
 </html>

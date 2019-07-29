@@ -131,7 +131,7 @@ public class CommonUtil {
 		return saveFileCount;
 	}
 	
-	private static Date getDate(String date) throws ParseException{
+	public static Date getDate(String date) throws ParseException{
 		SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD");
 		return sdf.parse(date);
 	}

@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html style="width:100%;height:100%;overflow:hidden">
 <head>
@@ -19,15 +20,15 @@
 <body class="easyui-layout">
 	<div region="center" border="false" style="padding:5px;">	
 		<fieldset id="queryBlock" class="fieldset_common_style">
-			<form id="yearForm" name="yearForm" method="post" action="${pageContext.request.contextPath}/year/list?flag=2">
+			<form id="yearForm" name="yearForm" method="post" action="${pageContext.request.contextPath}/year/list">
 				<table class="table_common_style">
 					<tr>
 						<td class="table_common_td_label_query_style">显示年度：</td>
 						<td nowrap>
 							<input name="yearName" value="" class="easyui-textbox" style="width:200px;height:25px">
-							<input type='hidden' id="pageTotal" name="pageTotal" value="2" />
-							<input type="hidden" id="page" name="page" value="1">
-							<input type="hidden" id="pageSize" name="pageSize" value="15">
+							<input type='hidden' id="pageTotal" name="pageTotal" value="${pageModel.totalCount }" />
+							<input type="hidden" id="page" name="page" value="${pageModel.page }">
+							<input type="hidden" id="pageSize" name="pageSize" value="${pageModel.pageSize }">
 						</td>
 						<td align="right" valign="bottom">
 	                       	<a href="#" class="easyui-linkbutton" onclick="onSubmit()">
@@ -64,19 +65,13 @@
 				</tr>
 			</thead>
 			<tbody>
-				
-				<tr>
-					<td height="30" align="center" nowrap>1</td>
-					<td height="30" align="center" nowrap>2015</td>
-					<td height="30" align="center" nowrap>2015</td>
+				<c:forEach items="${pageModel.result }" var="y">
+					<tr>
+					<td height="30" align="center" nowrap>${y.id }</td>
+					<td height="30" align="center" nowrap>${y.yearCode }</td>
+					<td height="30" align="center" nowrap>${y.yearName }</td>
 				</tr>
-				
-				<tr>
-					<td height="30" align="center" nowrap>2</td>
-					<td height="30" align="center" nowrap>2014</td>
-					<td height="30" align="center" nowrap>2014</td>
-				</tr>
-						
+				</c:forEach>
 			</tbody>
 		</table>
 		<div id="addDialog"></div>
@@ -117,7 +112,7 @@ function addYear(){
 	    height: 260,
 	    closed: false,
 	    cache: false,
-	    href: 'yearcodeAdd.jsp',
+	    href: '${pageContext.request.contextPath}/year/add',
 	    modal: true
 	});
 }
@@ -138,10 +133,10 @@ function deleteYear(){
 	$.messager.confirm("确认", "您确认删除选定的记录吗？", function (deleteAction) {
 		if (deleteAction) {
 			showLoading();
-			Public.ajaxGet('${pageContext.request.contextPath}/year/delete', {ids : ids}, function(e) {
+			Public.ajaxPost('${pageContext.request.contextPath}/year/delete', JSON.stringify(ids), function(e) {
 				hideLoading();
 				if (200 == e.status) {
-					$.messager.alert('提示','操作成功。','info');
+					$.messager.alert('提示',e.msg,'info');
 					onSubmit();
 				} else
 					$.messager.alert('错误',e.msg,'error');

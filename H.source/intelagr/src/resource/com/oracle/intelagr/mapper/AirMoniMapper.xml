@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oracle.intelagr.mapper.AirMoniMapper">
+	<resultMap type="AirMoni" id="airMoniMap">
+		<id column="id" property="id" />
+		<result column="monitorDate" property="monitorDate" />
+		<result column="monitorPointCode" property="monitorPointCode" />
+		<result column="tsp" property="tsp" />
+		<result column="so2" property="so2" />
+		<result column="no2" property="no2" />
+	</resultMap>
+ 	<select id="select" resultMap="airMoniMap" parameterType="java.util.Map">
+ 		select * from b_airmonitoring
+ 		<where>
+ 			<if test="s_monitorDate!=null and s_monitorDate!=''">
+ 				and monitorDate >= #{s_monitorDate}
+ 			</if>
+ 			<if test="e_monitorDate!=null and e_monitorDate!=''">
+ 				<![CDATA[
+ 					and monitorDate <= #{e_monitorDate}
+ 				]]>		
+ 			</if>
+ 			and deleteflag="N"
+ 		</where>
+ 		<if test="index!=null">
+			limit #{index},#{pageSize}
+		</if>
+ 	</select>
+ 	<select id="selectById" resultType="AirMoni" parameterType="int">
+ 		select * from b_airmonitoring where id=#{id}
+ 	</select>
+ 	<insert id="insert" parameterType="AirMoni" keyProperty="id" useGeneratedKeys="true">
+		insert into b_airmonitoring values (default,#{monitorDate},#{monitorPointCode},#{tsp},#{so2},#{no2},
+		#{remark},'N',#{createUserId},#{createDate},#{updateUserId},#{updateDate})
+	</insert>
+	<select id="count" resultType="int" parameterType="java.util.Map">
+ 		select count(*) from b_airmonitoring 
+ 		<where>
+ 			<if test="s_monitorDate!=null and s_monitorDate!=''">
+ 				and monitorDate >= #{s_monitorDate}
+ 			</if>
+ 			<if test="e_monitorDate!=null and e_monitorDate!=''">
+ 				<![CDATA[
+ 					and monitorDate = #{e_monitorDate}
+ 				]]>		
+ 			</if>
+ 			and deleteflag="N"
+ 		</where>
+ 	</select>
+ 	<update id="update" parameterType="AirMoni">
+		update b_airmonitoring
+		<set>
+			<if test="monitorDate!=null ">
+				monitorDate=#{monitorDate},
+			</if>
+			<if test="monitorPointCode!=null and monitorPointCode!=''">
+				monitorPointCode=#{monitorPointCode},
+			</if>
+			<if test="tsp!=null and tsp!=''">
+				tsp=#{tsp},
+			</if>
+			<if test="so2!=null and so2!=''">
+				so2=#{so2},
+			</if>
+			<if test="no2!=null and no2!=''">
+				no2=#{no2},
+			</if>
+			<if test="remark!=null and remark!=''">
+				remark=#{remark},
+			</if>
+			<if test="deleteFlag!=null and deleteFlag!=''">
+				deleteflag=#{deleteFlag},
+			</if>
+			<if test="updateUserId!=null and updateUserId!=''">
+				updateUserId=#{updateUserId},
+			</if>
+			<if test="updateDate!=null ">
+				updateDate=#{updateDate},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+
+</mapper>

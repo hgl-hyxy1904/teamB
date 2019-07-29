@@ -12,6 +12,44 @@
  			<if test="yearCode!=null and yearCode!=''">
  				and yearCode = #{yearCode}
  			</if>
+ 			and deleteflag="N"
+ 		</where>
+ 		<if test="index!=null">
+			limit #{index},#{pageSize}
+		</if>
+ 	</select>
+ 	<insert id="insert" parameterType="YearCode" useGeneratedKeys="true" keyProperty="id">
+ 		insert into m_year values (default,#{yearCode},#{yearName},'1',
+		#{remark},'N',#{createUserId},#{createDate},#{updateUserId},#{updateDate})
+ 	</insert>
+ 	<select id="selectById" resultType="YearCode" parameterType="int">
+ 		select * from m_year where id=#{id}
+ 	</select>
+ 	<update id="update" parameterType="YearCode">
+		update m_year
+		<set>
+			<if test="remark!=null and remark!=''">
+				remark=#{remark},
+			</if>
+			<if test="deleteFlag!=null and deleteFlag!=''">
+				deleteflag=#{deleteFlag},
+			</if>
+			<if test="updateUserId!=null and updateUserId!=''">
+				updateUserId=#{updateUserId},
+			</if>
+			<if test="updateDate!=null ">
+				updateDate=#{updateDate},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	<select id="count" resultType="int" parameterType="java.util.Map">
+ 		select count(*) from m_year 
+ 		<where>
+ 			<if test="yearCode!=null and yearCode!=''">
+ 				and yearCode = #{yearCode}
+ 			</if>
+ 			and deleteflag="N"
  		</where>
  	</select>
 

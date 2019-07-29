@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@taglib uri="/tags/simple" prefix="s" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %>
 <!DOCTYPE html>
 <html style="width:100%;height:100%;overflow:hidden">
 <head>
@@ -21,23 +24,17 @@
 <body class="easyui-layout">
 	<div region="center" border="false" style="padding:5px;">
 		<fieldset id="queryBlock" class="fieldset_common_style">
-			<form id="inputRegForm" name="inputRegForm" method="get" action="../geneLandReg/list">
-				<input type='hidden' id="pageTotal" name="pageTotal" value="0" />
-				<input type="hidden" id="page" name="page" value="1">
-				<input type="hidden" id="pageSize" name="pageSize" value="15">
+			<form id="inputRegForm" name="inputRegForm" method="post" action="${pageContext.request.contextPath }/geneLandReg/list">
+				<input type='hidden' id="pageTotal" name="pageTotal" value="${pageModel.totalCount }" />
+				<input type="hidden" id="page" name="page" value="${pageModel.page }">
+				<input type="hidden" id="pageSize" name="pageSize" value="${pageModel.pageSize }">
 				<table class="table_common_style">
 					<tr>
 						<td class="table_common_td_label_query_style">年度：</td>
 						<td class="table_common_td_txt_query_style">
 							
 
-		<select id="year" name="year" class="easyui-combobox" style="width:211px;height:25px" data-options="editable:true">
-
-			<option value="2015">2015年</option>
-
-			<option value="2014">2014年</option>
-
-		</select>
+		<s:select name="year" id="year" entityName="yearcode"  hasPleaseSelectOption="true"></s:select>	
 
 		 <script type="text/javascript">
 
@@ -61,86 +58,7 @@
 						</td>
 						<td class="table_common_td_label_query_style">企业：</td>
 						<td class="table_common_td_txt_query_style">
-							
-
-
-	
-
-		<select id="companyCode" name="companyCode" class="easyui-combobox" style="width:187px;height:25px" data-options="editable:true">
-<option value="" selected>-=请选择=-</option>
-			<option value="GS001">五常市长盛种业有限公司</option>
-
-			<option value="GS002">五常市利元种业有限公司</option>
-
-			<option value="GS003">五常市龙洋种子有限公司</option>
-
-			<option value="GS004">黑龙江阳光种业有限公司</option>
-
-			<option value="GS005">五常市神农天源种子有限公司</option>
-
-			<option value="GS006">五常市葵花阳光农业科技服务有限公司</option>
-
-			<option value="GS007">东方粮仓种业科技发展有限公司</option>
-
-			<option value="GS008">五常沃科收种业有限责任公司</option>
-
-			<option value="GS009">五常市宏运种业有限公司</option>
-
-			<option value="GS010">五常市绿珠种业科技有限公司</option>
-
-			<option value="GS011">黑龙江方圆农业有限责任公司</option>
-
-			<option value="GS012">五常市丰源农业科技创新有限责任公司</option>
-
-			<option value="GS013">哈尔滨盛世百年农业有限公司</option>
-
-			<option value="GS100">五常市金福粮油有限公司</option>
-
-			<option value="GS101">五常市汤洪斌水稻种植农民专业合作社</option>
-
-			<option value="GS102">五常市农之坊水稻种植农民专业合作社</option>
-
-			<option value="GS103">五常市浩海水稻种植农民专业合作社</option>
-
-			<option value="GS104">五常市首誉水稻种植农民专业合作社</option>
-
-			<option value="GS105">五常市百谷香水稻种植农民专业合作社</option>
-
-			<option value="GS106">五常市雪国粮仓水稻种植专业合作社</option>
-
-			<option value="GS107">五常市明栎水稻种植专业合作社</option>
-
-			<option value="GS108">五常市永顺丰水稻种植农民专业合作社</option>
-
-			<option value="GS109">五常市秋然稻香水稻种植农民专业合作社</option>
-
-			<option value="GS110">五常市千盈水稻种植专业合作社</option>
-
-			<option value="GS111">五常裕禾田水稻种植农民专业合作社</option>
-
-			<option value="GS112">五常市曾氏水稻种植专业合作社</option>
-
-			<option value="GS113">五常市官仓稻场水稻种植农民专业合作社</option>
-
-			<option value="GS114">五常市海兴水稻种植农民专业合作社</option>
-
-			<option value="GS115">五常市积养源水稻种植农民专业合作社</option>
-
-			<option value="GS116">五常市那军水稻种植农民专业合作社</option>
-
-			<option value="GS117">五常市德双水稻种植专业合作社</option>
-
-			<option value="GS118">五常市康基水稻种植专业合作社</option>
-
-			<option value="GS119">双涛水稻种植合作社</option>
-
-			<option value="GS120">五常市小稻夫水稻种植农民专业合作社</option>
-
-			<option value="GS121">五常市郑文波水稻种植专业合作社</option>
-
-			<option value="GS122">文龙水稻种植专业合作社</option>
-
-		</select>
+		<s:select name="companyCode" id="companyCode" entityName="company" value="${companyCode }" codeKey="" hasPleaseSelectOption="true"></s:select>
 
 		 <input type="hidden" id="companyCode_companyName" name="companyName" value="">
 
@@ -290,7 +208,7 @@
 			</tr>
 			</table>
 		</fieldset>	
-		<table id="data" class="easyui-datagrid"  pageSize="15" pageNumber="1">
+		<table id="data" class="easyui-datagrid"  pageSize="15" pageNumber="1"  >
 			<thead>
 				<tr>
 					<th field="id" width="140" align="center" checkbox="true"></th>
@@ -308,7 +226,23 @@
 				</tr>
 			</thead>
 			<tbody>
-				
+				<c:forEach items="${pageModel.result }" var="g">
+					<c:forEach items="${g.list }" var="l">
+				<tr>
+					<td>${g.id }</td>
+					<td>${g.applyBatchNo }</td>
+					<td>${g.year }</td>
+					<td>${g.companyName }</td>
+					<td><f:formatDate value="${l.operatorDate }" pattern="yyyy-MM-dd"/></td>
+					<td>${l.operatorName }</td>
+					<td>${l.archiveAcreage }</td>
+					<td>${g.status }</td>
+					<td>${g.reason }</td>
+					<td>${g.auditor }</td>
+					<td>${g.auditTime }</td>
+				</tr>
+					</c:forEach>
+				</c:forEach>	
 				<tr>
 					<td></td>
 					<td></td>
@@ -316,12 +250,12 @@
 					<td></td>
 					<td></td>
 					<td>合计：</td>
-					<td>0.00</td>
+					<td>${sum }</td>
 					<td></td>
 					<td></td>
 					<td></td>
 					<td></td>
-				</tr>		
+				</tr>	
 			</tbody>
 		</table>
 	</div>
@@ -427,7 +361,7 @@ function deleteRecord(){
 	    for(var i=0; i<rows.length; i++) 
 		ids.push(rows[i].id);
 	    showLoading();
-		Public.ajaxGet('delete', {ids : ids}, function(e) {
+		Public.ajaxPost('${pageContext.request.contextPath}/geneLandReg/delete', JSON.stringify(ids), function(e) {
 			hideLoading();
 			if (200 == e.status) {
 				form_check();
@@ -438,7 +372,7 @@ function deleteRecord(){
   	
 }
 function add(){
-	var url = "geneLandRegEdit.jsp";
+	var url = "${pageContext.request.contextPath}/geneLandReg/listadd";
 	document.location.href = url;
 }
 function getQueryCond(){
@@ -475,7 +409,7 @@ function edit(){
 	}
 	var id = rows[0].id;
 	
-	var url = "${pageContext.request.contextPath}/geneLandReg/editInput?retFlag=1&id=" + id;
+	var url = "${pageContext.request.contextPath}/geneLandReg/listedit?retFlag=1&id=" + id;
 	url += getQueryCond();
 	
 	document.location.href = url;

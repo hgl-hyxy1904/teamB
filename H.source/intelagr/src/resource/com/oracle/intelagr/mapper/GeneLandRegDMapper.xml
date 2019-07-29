@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oracle.intelagr.mapper.GeneLandRegDMapper">
+	<resultMap type="GeneLandRegD" id="geneLandRegDMap">
+		<id column="id" property="id" />
+		<result column="hid" property="hid" />
+		<result column="contractorType" property="contractorType" />
+		<result column="idType" property="idType" />
+		<result column="contractorID" property="contractorID" />
+		<result column="contractorName" property="contractorName" />
+		<result column="contractorTel" property="contractorTel" />
+		<result column="cityCode" property="cityCode" />
+		<result column="townCode" property="townCode" />
+		<result column="countryCode" property="countryCode" />
+		<result column="groupName" property="groupName" />
+		<result column="archiveAcreage" property="archiveAcreage" />
+		<result column="contractTotalYield" property="contractTotalYield" />
+		<result column="registeredTotalYield" property="registeredTotalYield" />
+		<result column="operatorName" property="operatorName" />
+		<result column="operatorDate" property="operatorDate" />
+	</resultMap>
+ 	<select id="select" resultMap="geneLandRegDMap" parameterType="java.util.Map">
+ 		select * from b_generallandregd
+ 		<where>
+ 			 <if test="contractorID!=null and contractorID!=''">
+ 				and contractorID = #{contractorID}
+ 			</if>
+ 			<if test="HID!=null and HID!=''">
+ 				and hid = #{HID}
+ 			</if>	
+ 			and deleteflag="N"
+ 		</where>
+ 	</select>
+	<insert id="insert" parameterType="GeneLandRegD" keyProperty="id" useGeneratedKeys="true">
+		insert into b_generallandregd values(default,#{hid},#{contractorType},#{idType},#{contractorID},#{contractorName},#{contractorTel},#{cityCode},
+		#{townCode},#{countryCode},#{groupName},#{archiveAcreage},#{contractTotalYield},#{registeredTotalYield},#{operatorName},#{operatorDate},#{remark},'N',#{createUserId},#{createDate},#{updateUserId},#{updateDate})
+	</insert>
+	<update id="update" parameterType="GeneLandRegD">
+		update b_generallandregd
+		<set>
+			<if test="hid!=null and hid!=''">
+				hid=#{hid},
+			</if>
+			<if test="contractorType!=null and contractorType!=''">
+				contractorType=#{contractorType},
+			</if>
+			<if test="idType!=null and idType!=''">
+				idType=#{idType},
+			</if>
+			<if test="contractorID!=null and contractorID!=''">
+				contractorID=#{contractorID},
+			</if>
+			<if test="contractorName!=null and contractorName!=''">
+				contractorName=#{contractorName},
+			</if>
+			<if test="archiveAcreage!=null and archiveAcreage!=''">
+				archiveAcreage=#{archiveAcreage},
+			</if>
+			<if test="contractTotalYield!=null and contractTotalYield!=''">
+				contractTotalYield=#{contractTotalYield},
+			</if>
+			<if test="registeredTotalYield!=null and registeredTotalYield!=''">
+				registeredTotalYield=#{registeredTotalYield},
+			</if>
+			<if test="remark!=null and remark!=''">
+				remark=#{remark},
+			</if>
+			<if test="deleteFlag!=null and deleteFlag!=''">
+				deleteflag=#{deleteFlag},
+			</if>
+			<if test="updateUserId!=null and updateUserId!=''">
+				updateUserId=#{updateUserId},
+			</if>
+			<if test="updateDate!=null ">
+				updateDate=#{updateDate},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+</mapper>

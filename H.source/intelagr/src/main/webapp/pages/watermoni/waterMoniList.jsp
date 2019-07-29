@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %>
 <!DOCTYPE html>
 <html style="width:100%;height:100%;overflow:hidden">
 <head>
@@ -17,10 +19,10 @@
 <body class="easyui-layout">
 	<div region="center" border="false" style="padding:5px;">	
 		<fieldset id="queryBlock" class="fieldset_common_style">
-				<form id="inputForm" name="inputForm" method="get" action="../waterMoni/search">
-				<input type='hidden' id="pageTotal" name="pageTotal" value="0" />
-				<input type="hidden" id="page" name="page" value="1">
-				<input type="hidden" id="pageSize" name="pageSize" value="15">
+				<form id="inputForm" name="inputForm" method="get" action="${pageContext.request.contextPath }/waterMoni/list">
+				<input type='hidden' id="pageTotal" name="pageTotal" value="${pageModel.totalCount }" />
+				<input type="hidden" id="page" name="page" value="${pageModel.page }">
+				<input type="hidden" id="pageSize" name="pageSize" value="${pageModel.pageSize }">
 				<table class="table_common_style">
 					<tr>
 						<td class="table_common_td_label_query_style">监测日期：</td>
@@ -85,7 +87,22 @@
 				</tr>
 			</thead>
 			<tbody>
-						
+					<c:forEach items="${pageModel.result }" var="w">
+					<tr>
+						<td field="id" width="140" align="center" hidden="true">${w.id }</td>
+						<td field="monitorDate" width="120" align="center"><f:formatDate value="${w.monitorDate }" pattern="yyyy-MM-dd"/></td>
+						<td field="sectionName" width="120" align="center">${w.monitorPointName }</td>
+						<td field="ph" width="120" align="center">${w.ph }</td>
+						<td field="do" width="120" align="center">${w.doValue }</td>
+						<td field="codmn" width="120" align="center">${w.codmn }</td>
+						<td field="bod5" width="120" align="center">${w.bod5 }</td>
+						<td field="milledriceRate" width="120" align="center">${w.nh3n }</td>
+						<td field="zl" width="120" align="center">${w.tp }</td>
+						<td field="codcr" width="120" align="center">${w.codcr }</td>
+						<td field="createDate" width="120" align="center">${w.createUserId }</td>
+						<td field="createUserId" width="120" align="center"><f:formatDate value="${w.createDate }" pattern="yyyy-MM-dd"/></td>
+					</tr>
+					</c:forEach>	
 			</tbody>
 		</table>
 	</div>
@@ -135,9 +152,7 @@ function deleteRecord(id){
 				var length = rows.length;
 				for (var i = 0; i < rows.length; i++)
 					ids.push(rows[i].id);
-				Public.ajaxGet('delete', {
-					ids : ids
-				}, function(e) {
+				Public.ajaxPost('${pageContext.request.contextPath}/waterMoni/delete', JSON.stringify(ids), function(e) {
 					if (200 == e.status) {
 
 						form_check();
@@ -168,7 +183,7 @@ function edit(id){
 	    height: 430,
 	    closed: false,
 	    cache: false,
-	    href: 'editInput?id='+ id,
+	    href: '${pageContext.request.contextPath}/waterMoni/edit?id='+ id,
 	    modal: true
 	});
 }
@@ -180,7 +195,7 @@ function add(){
 	    height: 430,
 	    closed: false,
 	    cache: false,
-	    href: 'waterMoniEdit.jsp',
+	    href: '${pageContext.request.contextPath}/waterMoni/add',
 	    modal: true
 	});
 }
@@ -214,7 +229,7 @@ function view(){
 	    height: 440,
 	    closed: false,
 	    cache: false,
-	    href: 'view?id='+ id,
+	    href: '${pageContext.request.contextPath}/waterMoni/view?id='+ id,
 	    modal: true
 	});
 }

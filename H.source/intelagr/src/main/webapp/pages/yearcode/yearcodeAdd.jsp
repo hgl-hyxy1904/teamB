@@ -68,7 +68,7 @@ function formCheck(){
 	var a = $('#addYearForm').toObject();
 	Public.ajaxPost('${pageContext.request.contextPath}/year/save', JSON.stringify(a), function(e) {
 		if (200 == e.status) {
-			$.messager.alert('提示','保存成功。','info');
+			$.messager.alert('提示',e.msg,'info');
 			closeEdiDialog();
 			$('#yearForm').submit();
 		} else {

@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@taglib uri="/tags/simple" prefix="s" %>
 <!DOCTYPE html>
 <html style="width:100%;height:100%;overflow:hidden">
 <head>
@@ -36,13 +37,15 @@
 			</tr>
 		</table>
 		<fieldset class="fieldset_common_style">
-			<form id="inputForm" name="inputForm" method="get" action="../inputReg/list">
+			<form id="inputForm" name="inputForm" method="post" action="">
 			<input type="hidden" id="tmp_id" name="tmp_id" value="">
 			
 			<table class="table_common_style">
 				<tr>
 					<td class="table_common_td_label_style">证件类型：</td>
-					<td class="table_common_td_txt_style editableFalse">
+					<td class="table_common_td_txt_style">
+					
+					<s:select name="idType" id="idType" entityName="commondata"  codeKey="IDType" hasPleaseSelectOption="true"></s:select>	
 						
 						<span class="span_common_mustinput_style">*</span>
 					</td>
@@ -65,6 +68,8 @@
 				<tr>
 					<td class="table_common_td_label_style">承包方类型：</td>
 					<td class="table_common_td_txt_style">
+						
+						<s:select name="contractorType" id="contractorType" entityName="commondata"  codeKey="ContractorType" hasPleaseSelectOption="true"></s:select>
 						
 					</td>
 					<td class="table_common_td_label_style">承包方：</td>
@@ -239,7 +244,7 @@ function sureLandRegD(id){
 
 	
 	//Modify By WolfSoul Begin
-	var optFlag = "${flag}";
+	/* var optFlag = "${flag}";
 	if( optFlag == "edit" ){
 		$('#geneLandData').datagrid('updateRow', {index:parseInt('${rowIndex}'),row:{
 			contractorValue: intValue(),
@@ -263,7 +268,7 @@ function sureLandRegD(id){
 			operatorName: $("#tmp_operatorName").val(),
 			operatorDate: $("#tmp_operatorDateDate").textbox('getValue')
 	    }});
-	}else{
+	}else{ */
 		$('#geneLandData').datagrid('appendRow', {
 			contractorValue: intValue(),
 			contractorType: $("#contractorType").combobox('getValue'),//承包人类型列是隐藏的
@@ -286,7 +291,7 @@ function sureLandRegD(id){
 			operatorName: $("#tmp_operatorName").val(),
 			operatorDate: $("#tmp_operatorDateDate").textbox('getValue')
 	    });
-	}
+	/* } */
 	//Modify By WolfSoul End
 	closeEditDialog();
 }
@@ -369,6 +374,7 @@ function expandInfo(){
 			return false;
 		}
 	}
+
 	$("#tmp_archiveAcreage").numberbox('setValue','');
 	$("#tmp_operatorName").textbox('setValue','');
 	var contractorType = $("#contractorType").combobox('getValue');
@@ -376,11 +382,11 @@ function expandInfo(){
 	var idType = $("#idType").combobox('getValue');
 	showLoading();
 	lastQcIdNumber = contractorId;
-	Public.ajaxGet('../api/getContratorInfo?contratorId=' + contractorId + "&contractorIDType=" + idType +"&year=${year}", {}, function(e) {
+	Public.ajaxPost("${pageContext.request.contextPath}/geneLandReg/expandInfo",JSON.stringify($("#inputForm").toObject()), function(e) {
 		hideLoading();
-		if (0 == e.status) {
+		if (200 == e.status) {
 			clearDatasTable();
-			initInterfaceInfo( e.data );
+			initInterfaceInfo( JSON.parse(e.data));
 		} else {
 			$.messager.alert('错误', e.msg, 'error');
 			//承包方
@@ -425,27 +431,30 @@ function initInterfaceInfo( data ){
 	//联系方式
 	$("#tmp_contractorTel").textbox('setValue', contratorInfo.contractorTel );
 	var params = {'cityCode': $('#tmp_cityCode').combobox('getValue'), 'townCode':contratorInfo.townCode, 'countryCode':contratorInfo.countryCode};
-	Public.ajaxGet('../areaDevision/getAreaDevisions', params, function(e) {
+	Public.ajaxPost('${pageContext.request.contextPath}/geneLandReg/getAreaDevisions', JSON.stringify(params), function(e) {
 		if (200 == e.status) {
-			 addTownAndCountryOptions(JSON.parse(e.data));
+			addTownAndCountryOptions(e.data);
 		} else {
 			$.messager.alert('错误','操作失败！' + e.msg, 'error');
 		}
 	});
-	alert(contratorInfo.groupName);
 	//屯
 	$("#tmp_groupName").textbox('setValue', contratorInfo.groupName );
 	//初始化总面积、已备案、可备案面积
 	//总面积
-	$("#zmj").textbox('setValue', numberDecimalDigits(data.zmj,2) );
+	/* $("#zmj").textbox('setValue', numberDecimalDigits(data.zmj,2) );
 	//已备案面积
 	$("#ybamj").textbox('setValue', numberDecimalDigits(data.yba,2) );
 	//可备案面积
-	$("#kbamj").textbox('setValue', numberDecimalDigits(data.kba,2) );
+	$("#kbamj").textbox('setValue', numberDecimalDigits(data.kba,2) ); */
 	
+	$("#zmj").textbox('setValue', data.zmj );
+	//已备案面积
+	$("#ybamj").textbox('setValue', data.yba);
+	//可备案面积
+	$("#kbamj").textbox('setValue', data.kba );
 	//土地列表信息
 	var landInfo = data.contract;
-	//alert(data.contract.length);
 	for( var contract in landInfo ){
 		//类型
 		var landType = landInfo[contract].landTypeName==null?'':landInfo[contract].landTypeName;
@@ -539,6 +548,7 @@ function initInterfaceInfo( data ){
 			textField:'text',
 			onChange:function(){return false;}
 		});
+
 		$('#tmp_townCodeView').combobox('clear');
 		$('#tmp_countryCodeView').combobox('clear');
 		$('#tmp_townCodeView').combobox('loadData',[{'id':obj[0].id,'text': obj[0].text}]);

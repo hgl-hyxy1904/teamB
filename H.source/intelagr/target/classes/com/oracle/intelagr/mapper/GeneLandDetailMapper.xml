@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oracle.intelagr.mapper.GeneLandDetailMapper">
+	<resultMap type="GeneLandDetail" id="geneLandDetailMap">
+		<id column="id" property="id" />
+		<result column="hid" property="hid" />
+		<result column="landType" property="landType" />
+		<result column="actualMu" property="actualMu" />
+		<result column="measurementMu" property="measurementMu" />
+		<result column="landClass" property="landClass" />
+		<result column="cityCode" property="cityCode" />
+		<result column="townCode" property="townCode" />
+		<result column="countryCode" property="countryCode" />
+		<result column="groupName" property="groupName" />
+		<result column="landName" property="landName" />
+		<result column="landTypeName" property="landTypeName" />
+		<result column="landClassName" property="landClassName" />
+	</resultMap>
+ 	<select id="select" resultMap="geneLandDetailMap" parameterType="java.util.Map">
+ 		select * from b_generallanddetails
+ 		<where>
+ 			<if test="HID!=null and HID!=''">
+ 				and hid = #{HID}
+ 			</if>	
+ 			and deleteflag="N"
+ 		</where>
+ 	</select>
+	<insert id="insert" parameterType="GeneLandRegD" >
+		insert into b_generallanddetails values(default,#{hid},#{landType},#{actualMu},#{measurementMu},#{landClass},#{landName},#{cityCode},
+		#{townCode},#{countryCode},#{groupName},#{remark},'N',#{createUserId},#{createDate},#{updateUserId},#{updateDate})
+	</insert>
+	<update id="update" parameterType="GeneLandRegD">
+		update b_generallanddetails
+		<set>
+			<if test="deleteFlag!=null and deleteFlag!=''">
+				deleteflag=#{deleteFlag},
+			</if>
+			<if test="updateUserId!=null and updateUserId!=''">
+				updateUserId=#{updateUserId},
+			</if>
+			<if test="updateDate!=null">
+				updateDate=#{updateDate},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+</mapper>

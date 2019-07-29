@@ -1,6 +1,7 @@
 package com.oracle.intelagr.entity;
 
 import java.util.Date;
+import java.util.List;
 
 
 public class GeneLandReg extends BaseEntity {
@@ -23,7 +24,16 @@ public class GeneLandReg extends BaseEntity {
 	private String reason;
 	
 	private Float mjsum;
+	
+	//普通土地备案子表的list数据
+	private List<GeneLandRegD> list;
 
+	public List<GeneLandRegD> getList() {
+		return list;
+	}
+	public void setList(List<GeneLandRegD> list) {
+		this.list = list;
+	}
 	public Integer getId() {
 		return id;
 	}

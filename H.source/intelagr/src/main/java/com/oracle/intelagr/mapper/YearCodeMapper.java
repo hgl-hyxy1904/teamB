@@ -7,4 +7,8 @@ import com.oracle.intelagr.entity.YearCode;
 
 public interface YearCodeMapper {
 	public List<YearCode> select(Map<String,Object> map);
+	public int insert(YearCode yearCode);
+	public int update(YearCode yearCode);
+	public int count(Map<String, Object> map);
+	public YearCode selectById(int id);
 }
