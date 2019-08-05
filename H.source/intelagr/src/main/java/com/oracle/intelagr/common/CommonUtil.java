@@ -82,7 +82,7 @@ public class CommonUtil {
 		Object obj = session.getAttribute(bizType+"fileList");
 		if(obj == null) return 0;
 		List<MfileModel> list = (List)obj;
-		Iterator<MfileModel> iter = list.iterator();
+		Iterator<MfileModel> iter = list.iterator(); 
 		while(iter.hasNext()) {
 			MfileModel mfileModel =  (MfileModel)iter.next();
 			BaseModel baseModel = CommonUtil.getBaseModel(request);
@@ -122,12 +122,12 @@ public class CommonUtil {
 				dstPath += "\\" + lastFilePath;
 				
 				File afile = new File(srcPath);
-				
+				//更改文件名
 	            if (afile.renameTo(new File(dstPath))) saveFileCount++;
 	            else log.error("save file error " + mfileModel.getFilePath()) ;
 			}
 		}
-		session.setAttribute(bizType+"fileList", null);
+		session.setAttribute(bizType+"fileList", null );
 		return saveFileCount;
 	}
 	

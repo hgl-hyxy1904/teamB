@@ -12,9 +12,11 @@ import org.springframework.web.servlet.tags.RequestContextAwareTag;
 
 import com.oracle.intelagr.entity.CommonData;
 import com.oracle.intelagr.entity.Company;
+import com.oracle.intelagr.entity.MoniPoint;
 import com.oracle.intelagr.entity.SeedVariety;
 import com.oracle.intelagr.entity.YearCode;
 import com.oracle.intelagr.service.ICompanyService;
+import com.oracle.intelagr.service.IMoniPointService;
 import com.oracle.intelagr.service.ISeedVarietyService;
 import com.oracle.intelagr.service.IYearCodeService;
 import com.oracle.intelagr.service.impl.CommonDataService;
@@ -163,6 +165,24 @@ public class CommonDataTag extends RequestContextAwareTag {
 						buffer.append("\n\t\t\t<option value=\"" + seed.getSeedCode() + "\" selected>" + handlerStr(seed.getSeedName()) + "</option>\n");
 					}else{
 						buffer.append("\n\t\t\t<option value=\"" + seed.getSeedCode() + "\">" + handlerStr(seed.getSeedName()) + "</option>\n");
+					}
+				}
+			}
+		}else if("monipoint".equalsIgnoreCase(entityName)){
+			IMoniPointService moniPointService = (IMoniPointService) this.getRequestContext().getWebApplicationContext().getBean("moniPointService");
+			if("true".equalsIgnoreCase(readOnly)){
+				if (value == null || "".equals(value.trim())) {
+					value = " ";
+				}
+				MoniPoint moniPoint = moniPointService.getMoniPoint(value);
+				buffer.append("\n\t\t\t<option value=\"" + moniPoint.getMonitorPointCode() + "\">" + handlerStr(moniPoint.getMonitorPointName()) + "</option>\n");
+			}else{
+				List<MoniPoint> moniPoint = moniPointService.getMoniPointList();
+				for (MoniPoint moniPointEntity : moniPoint) {
+					if(value!=null && !"".equals(value) && value.equals(moniPointEntity.getMonitorPointCode())){
+						buffer.append("\n\t\t\t<option value=\"" + moniPointEntity.getMonitorPointCode() + "\" selected>" + handlerStr(moniPointEntity.getMonitorPointName()) + "</option>\n");
+					}else{
+						buffer.append("\n\t\t\t<option value=\"" + moniPointEntity.getMonitorPointCode() + "\">" + handlerStr(moniPointEntity.getMonitorPointName()) + "</option>\n");
 					}
 				}
 			}

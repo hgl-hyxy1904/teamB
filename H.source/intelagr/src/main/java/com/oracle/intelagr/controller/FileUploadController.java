@@ -80,7 +80,7 @@ public class FileUploadController {
 		Object obj = session.getAttribute(bizType+"fileList");
 		if(obj == null) list = new ArrayList();
 		else list = (List<MfileModel>)obj;
-		list.add(mfileModel);
+		list.add(mfileModel);  
 		session.setAttribute(bizType+"fileList", list);
 		
 		JsonResult jr = new JsonResult(true);
@@ -96,7 +96,6 @@ public class FileUploadController {
 	@ResponseBody
 	public void fileList(HttpServletRequest request, HttpServletResponse response, String bizType, String bizCode, String getTmpFlag) throws IOException {
 		if( getTmpFlag == null ) getTmpFlag = "1";
-		
 		if(StringUtil.isNullOrEmpty(bizType)) return ;
 		List<Mfile> list = new ArrayList<Mfile>();
 		
@@ -163,6 +162,7 @@ public class FileUploadController {
 				file.delete();
 			}
 			HttpSession session = request.getSession();
+			//这个session获得了什么？？？？？？？？？？？？？
 			Object obj = session.getAttribute(bizType+"fileList");
 			if(obj != null){
 				List list = (List)obj;

@@ -25,5 +25,80 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{inputGoodsName},#{inputGoodsSupplier},#{purchaseQuantity},#{inputGoodsUnit},
 		#{purchasePerson},#{purchaseDate},#{remark},'N',#{createUserId},#{createDate},#{updateUserId},#{updateDate})
 	</insert>
+	<select id="select" resultMap="inputRegMapper" parameterType="java.util.Map">
+		select * from b_inputreg 
+	<where>
+			<if test="year!=null and year!=''">
+				and year=#{year}
+			</if>
+			<if test="companyCode!=null and companyCode!=''">
+				and companyCode=#{companyCode}
+			</if>
+			<if test="beginDate!=null and beginDate!=''">
+				and purchaseDate>=#{beginDate}
+			</if>
+			<if test="endDate!=null and endDate!=''">
+				<![CDATA[
+					and purchaseDate<=#{endDate}
+				]]>
+				
+			</if>
+			and deleteFlag = 'N'
+	</where>
+		<if test="index!=null">
+			limit #{index},#{pageSize}
+		</if>
+	</select>
 	
+	<!-- 修改和按id查询都用这个  -->
+	<select id="selectById" parameterType="int" resultType="inputReg">
+		select * from b_inputreg where id = #{id} and deleteFlag = 'N'
+	
+	</select>
+	
+	<update id="update" parameterType="InputReg">
+	update b_inputreg 
+	<set>
+			<if test="year!=null and year!=''">
+				year=#{year},
+			</if>
+			<if test="companyCode!=null and companyCode!=''">
+				copanyCode=#{companyCode},
+			</if>
+			<if test="companyName!=null and companyName!=''">
+				companyName=#{companyName},
+			</if>
+			<if test="applyBatchNo!=null and applyBatchNo!=''">
+				applyBatchNo=#{applyBatchNo},
+			</if>
+			<if test="inputGoodsName!=null and inputGoodsName!=''">
+				inputGoodsName=#{inputGoodsName},
+			</if>
+			<if test="inputGoodsSupplier!=null and inputGoodsSupplier!=''">
+				inputGoodsSupplier=#{inputGoodsSupplier},
+			</if>
+			<if test="purchaseQuantity!=null and purchaseQuantity!=''">
+				purchaseQuantity=#{purchaseQuantity},
+			</if>
+			<if test="inputGoodsUnit!=null and inputGoodsUnit!=''">
+				inputGoodsUnit=#{inputGoodsUnit},
+			</if>
+			<if test="purchasePerson!=null and purchasePerson!=''">
+				purchasePerson=#{purchasePerson},
+			</if>
+			<if test="purchaseDate!=null">
+				purchaseDate=#{purchaseDate},
+			</if>	
+			<if test="deleteFlag!=null and deleteFlag!=''">
+				deleteFlag=#{deleteFlag},
+			</if>	
+			<if test="updateDate!=null ">
+				UpdateDate=#{updateDate},
+			</if>
+			<if test="updateUserId!=null and updateUserId!=''">
+				UpdateUserId=#{updateUserId},
+			</if>
+	</set>
+			where id = #{id}
+	</update>
 </mapper>

@@ -47,7 +47,7 @@ public class ImageViewTag extends TagSupport {
 			innerDivId = "innerDiv";
 		}
 		if (imgInfoMaps == null || "".equals(imgInfoMaps.trim())) {
-			imgInfoMaps = "NotExsits";
+			imgInfoMaps = "NotExsits";  
 		}
 		//if (time == null || "".equals(time.trim())) {
 			time = "0";

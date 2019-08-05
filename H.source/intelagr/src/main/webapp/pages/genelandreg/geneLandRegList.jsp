@@ -236,7 +236,7 @@
 					<td><f:formatDate value="${l.operatorDate }" pattern="yyyy-MM-dd"/></td>
 					<td>${l.operatorName }</td>
 					<td>${l.archiveAcreage }</td>
-					<td>${g.status }</td>
+					<td><s:showName value="${g.status }" codeKey="GeneralRegistStatus" entityName="commondata"></s:showName></td>
 					<td>${g.reason }</td>
 					<td>${g.auditor }</td>
 					<td>${g.auditTime }</td>

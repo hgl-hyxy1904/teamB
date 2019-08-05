@@ -31,7 +31,7 @@
 	    			<tr>
 						<td class="table_common_td_label_style">监测点位：</td>
 		    			<td class="table_common_td_txt_style">
-		    				<s:select name="monitorPointCode" id="monitorPointCode" entityName="commondata" codeKey="MonitorPointType" value="${airMoni.monitorPointCode }" hasPleaseSelectOption="true"></s:select>
+		    				<s:select name="monitorPointCode" id="monitorPointCode" entityName="monipoint"  value="${airMoni.monitorPointCode }" hasPleaseSelectOption="true"></s:select>
 		    			</td>
 	    			</tr>
 	    			<tr>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oracle.intelagr.mapper.MoniPointMapper">
+	<resultMap type="MoniPoint" id="moniPointMap">
+		<id column="id" property="id" />
+		<result column="monitorPointType" property="monitorPointType" />
+		<result column="monitorPointCode" property="monitorPointCode" />
+		<result column="monitorPointName" property="monitorPointName" />
+	</resultMap>
+ 	<select id="select" resultMap="moniPointMap" parameterType="java.util.Map">
+ 		select * from m_monitorpoint
+ 		<where>
+ 			<if test="monitorPointType!=null and monitorPointType!=''">
+ 				and monitorPointType = #{monitorPointType}
+ 			</if>
+ 			<if test="monitorPointCode!=null and monitorPointCode!=''">
+ 				and monitorPointCode = #{monitorPointCode}
+ 			</if>
+ 			<if test="monitorPointName!=null and monitorPointName!=''">
+ 				and monitorPointName = #{monitorPointName}
+ 			</if>
+ 		</where>
+ 	</select>
+
+</mapper>

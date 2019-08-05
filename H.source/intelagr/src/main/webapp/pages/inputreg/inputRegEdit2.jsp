@@ -44,106 +44,25 @@
 						<tr>
 							<td class="table_common_td_label_style">上报流水号：</td>
 							<td colspan="3" class="table_common_td_txt_style">
-							<input id="applyBatchNo" name="applyBatchNo" type="hidden" readonly="readonly" value="${applyBatchNo }">${applyBatchNo }</input>
+							<span id="applyBatchNo" name="applyBatchNo" type="text" readonly="readonly" value="${inputReg.applyBatchNo }">${inputReg.applyBatchNo }</span>
 							</td>
 						</tr>
 						<tr>
 							<td class="table_common_td_label_style">年度：</td>
-							<td class="table_common_td_txt_style editableFalse">
-				
-		<s:select id="year" name="year" entityName="yearcode"  hasPleaseSelectOption="true"></s:select>
-
-		 <script type="text/javascript">
-
-			 $(document).ready(function(){ 
-
-				 $('#year').combobox({ 
-
-					 onChange:function(newValue,oldValue){
-
-						 return false;
-
-					 } 
-
-				 });
-
-
-			 });
-
-		</script>
-
+							<td class="table_common_td_txt_style ">
+  							<input id="year" name="year" type="text"  value="${inputReg.year }"></input>
+		
 								<span class="span_common_mustinput_style">*</span>
 							</td>
 							<td class="table_common_td_label_style">企业名称：</td>
 							<td class="table_common_td_txt_style">
-								
-			<s:select name="companyCode" id="companyCode" entityName="company" value="${companyCode }" codeKey="" hasPleaseSelectOption="true"></s:select>	
-		    <input type="hidden" id="companyCode_companyName" name="companyName" value="">
-
+		    <input type="hidden" id="companyCode_companyName" name="companyName" value="${inputReg.companyCode }">
+			<input type="text" id="companyCode_companyName" name="companyName" value="${inputReg.companyName }">
 		</select>
 
-		 <input type="hidden" id="companyCode_companyName" name="companyName" value="">
+		
 
-		 <script type="text/javascript">
-
-			 $(document).ready(function(){ 
-
-				 $('#companyCode_companyName').val($('#companyCode option:selected').text());
-
-				 $('#companyCode').combobox({ 
-
-					 onChange:function(newValue,oldValue){
-
-						 var ops = document.getElementById('companyCode').options;
-
-						 for(var i=0;i<ops.length;i++){ 
-
-							 if(ops[i].value == newValue){ 
-
-								 $('#companyCode_companyName').val(ops[i].text); 
-
-								 break; 
-
-							 } 
-
-						 } 
-
-						 return false;; 
-
-					 } 
-
-				 });
-
-
-				 $('#companyCode').combobox('textbox').bind('focus',function(){
-					 var value = $('#companyCode').combobox('getValue');
-					 var opts = $('#companyCode').combobox('getData');
-						 if(value != ''){
-							 var findFlag = false;
-							 for(var i=0; i<opts.length; i++){
-								 if(opts[i].value == value){
-									 findFlag = true;
-									 break;
-								 }
-							 }
-							 if(!findFlag){
-								 value = '';
-								 $('#companyCode').combobox('setValue', '');
-							 }
-						 }
-					 if(value == ''){
-						 $('#companyCode').combobox('setText','');
-					 }
-				 }); 
-				 $('#companyCode').combobox('textbox').bind('blur',function(){  
-					 var value = $('#companyCode').combobox('getValue');
-					 if(value == ''){
-						 $('#companyCode').combobox('setText','-=请选择=-');
-					 }
-				 });
-			 });
-
-		</script>
+		
 
 
 
@@ -153,34 +72,17 @@
 						<tr>
 							<td class="table_common_td_label_style">投入品名称：</td>
 							<td class="table_common_td_txt_style">
-								<input class="easyui-textbox"  type="text" name="inputGoodsName" value="" style="width:187px;"></input>
+								<input class="easyui-textbox"  type="text" name="inputGoodsName" value="${inputReg.inputGoodsName }" style="width:187px;"></input>
 								<span class="span_common_mustinput_style">*</span>
 							</td>
 							<td class="table_common_td_label_style">采购量：</td>
 							<td class="table_common_td_txt_style">
-								<input class="easyui-numberbox" precision="2" min="0.00" max="9999999.99" type="text" name="purchaseQuantity" value="" style="width:100px;"></input>
-							<s:select name="inputGoodsUnit" id="inputGoodsUnit" entityName="commondata" codeKey="InputMaterialUnit"></s:select>	
+								<input class="easyui-numberbox" precision="2" min="0.00" max="9999999.99" type="text" name="purchaseQuantity" value="${inputReg.purchaseQuantity }" style="width:100px;"></input>
+								
+
+		<s:select name="inputGoodsUnit" id="inputGoodsUnit" value="${inputReg.inputGoodsUnit }" entityName="commondata" codeKey="InputMaterialUnit"></s:select>	
 
 		
-
-		 <script type="text/javascript">
-
-			 $(document).ready(function(){ 
-
-				 $('#inputGoodsUnit').combobox({ 
-
-					 onChange:function(newValue,oldValue){
-
-						 return false;
-
-					 } 
-
-				 });
-
-
-			 });
-
-		</script>
 
 								<span class="span_common_mustinput_style">*</span>
 							</td>
@@ -188,19 +90,19 @@
 						<tr>
 							<td class="table_common_td_label_style">投入品经销商：</td>
 							<td class="table_common_td_txt_style">
-								<input class="easyui-textbox" type="text" name="inputGoodsSupplier" value="" style="width:187px;"></input>
+								<input class="easyui-textbox" type="text" name="inputGoodsSupplier" value="${inputReg.inputGoodsSupplier }" style="width:187px;"></input>
 								<span class="span_common_mustinput_style">*</span>
 							</td>
 						</tr>
 						<tr>
 							<td class="table_common_td_label_style">采购人：</td>
 							<td class="table_common_td_txt_style">
-								<input class="easyui-textbox" type="text" name="purchasePerson" value="" style="width:187px;"></input>
+								<input class="easyui-textbox" type="text" name="purchasePerson" value="${inputReg.purchasePerson }" style="width:187px;"></input>
 								<span class="span_common_mustinput_style">*</span>
 							</td>
 							<td class="table_common_td_label_style">采购日期：</td>
 							<td class="table_common_td_txt_style editableFalse">
-								<input class="easyui-datebox" name="purchaseDate"  value="Sun May 21 00:00:00 CST 2017"
+								<input class="easyui-datebox" name="purchaseDate"  value="${inputReg.purchaseDate }"
             data-options="required:true,showSeconds:false" style="width:187px" editable="false">
 								<span class="span_common_mustinput_style">*</span>
 							</td>
@@ -238,9 +140,11 @@
 				<table id="fileDiv" class="table_common_style">
 					<tr>
 						<td>
-				<s:imgView outerDivId="imgPriviewOuter" innerDivId="imgPriviewInner" imgInfoMaps="impPathAndInfoMaps" width="420" height="500" ></s:imgView>
+						<!-- 有这个标签里的方法才能在预览的时候图片那一块能显示 -->
+		<s:imgView outerDivId="imgPriviewOuter" innerDivId="imgPriviewInner" imgInfoMaps="impPathAndInfoMaps" width="420" height="500" ></s:imgView>
+
 						</td>
-					</tr>
+					</tr>  
 				</table>
 			</fieldset>
 		</form>
@@ -252,9 +156,12 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+	/* 	提交表单的id这个id得在表单的id那的vaule那把值取出来 */
 		var id = $("#id").val(); 
+		
 		if(id != ""){
-			showFileList("02", id , '采购凭证', 'imgPriviewOuter', 'imgPriviewInner' );
+			
+			showFileList("02", id, '采购凭证', 'imgPriviewOuter', 'imgPriviewInner' );
 		}
 	});
 	
@@ -265,11 +172,12 @@
 	$("#fileDiv").css("padding-left", paddingLeft);
 
 	function save(){
-		if(!check()) return ;
+		//if(!check()) return ;
 		var a = $('#addFrom').toObject();
-		var retFlag = '';
-		alert("--a-a-a--a-a");
-		Public.ajaxPost('${pageContext.request.contextPath}/inputReg/save', 
+		alert("-a");
+		/* 把这个reFlag接一下如果他不等于1就不能忘list跳转 */
+		var retFlag = ${reFlag}+"";
+		Public.ajaxPost('${pageContext.request.contextPath}/inputReg/update', 
 				JSON.stringify(a),
 				function(e) {
 			if (200 == e.status) {
@@ -287,6 +195,7 @@
 		});
 	}
 	function retList(){
+		alert("-assdasdas-dasda-d-as-d-as-d-as-das-d");
 		var url = "${pageContext.request.contextPath}/inputReg/list";
 		url += "?year=";
 		url += "&page=";

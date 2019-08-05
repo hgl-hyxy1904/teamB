@@ -40,7 +40,7 @@
 					</td>
 				</tr>
 			</table>
-			<div id="pbar" class="easyui-progressbar" style="width:485px; margin-top:5px; display:none;"></div> 
+			<div id="pbar" class="easyui-progressbar" style="width:485px; margin-top:5px; /* display:none; */"></div> 
 			</form>
 		</fieldset>
 		<table id="uploadFileList" class="easyui-datagrid" striped="true" singleSelect="true" style="height:180px;">
@@ -66,7 +66,7 @@ $(document).ready(function(){
 function upload(){
 	var file = $("#file").val();
 	if(file == ''){
-		$.messager.alert('警告','请先选择文件。','warning');
+		$.messager.alert('警告','请先选择文件。','warning');  
 		return false;
 	}
 	//文件类型较验

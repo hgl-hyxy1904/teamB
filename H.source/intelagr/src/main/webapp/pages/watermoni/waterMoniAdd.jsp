@@ -31,7 +31,7 @@
 	    			<tr>
 		    			<td class="table_common_td_label_style">断面名称：</td>
 		    			<td class="table_common_td_txt_style">
-		    				<s:select name="monitorPointCode" id="monitorPointCode" entityName="commondata" codeKey="MonitorPointType" hasPleaseSelectOption="true"></s:select>
+		    				<s:select name="monitorPointCode" id="monitorPointCode" entityName="monipoint"  hasPleaseSelectOption="true"></s:select>
 		    			</td>
 	    			</tr>
 	    			<tr>
